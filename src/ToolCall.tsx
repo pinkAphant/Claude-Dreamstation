@@ -1,5 +1,6 @@
-import { P, type Game, type GameState, type SfxName } from "../core";
-import type { Gfx } from "../gfx";
+import { useCartridgeTexture, type CartridgeProps } from "./cartridge";
+import { P, type Game, type GameState, type SfxName } from "./core";
+import type { Gfx } from "./gfx";
 
 interface S extends GameState {
   lives: number;
@@ -133,3 +134,8 @@ export const toolCall: Game<S> = {
     });
   },
 };
+
+/** The cabinet screen for this game: mount it inside the screen's scene and it fills it. */
+export default function ToolCall(props: CartridgeProps) {
+  return <primitive object={useCartridgeTexture(toolCall, props)} attach="background" />;
+}

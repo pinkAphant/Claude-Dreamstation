@@ -1,5 +1,6 @@
-import { P, W, type Game, type GameState } from "../core";
-import type { Gfx } from "../gfx";
+import { useCartridgeTexture, type CartridgeProps } from "./cartridge";
+import { P, W, type Game, type GameState } from "./core";
+import type { Gfx } from "./gfx";
 
 interface Obs { x: number; w: number; h: number; top: boolean }
 interface S extends GameState {
@@ -166,3 +167,8 @@ export const longHorizon: Game<S> = {
     g.spark(120, 112, 4, P.clay, t * 0.05, 8);
   },
 };
+
+/** The cabinet screen for this game: mount it inside the screen's scene and it fills it. */
+export default function LongHorizon(props: CartridgeProps) {
+  return <primitive object={useCartridgeTexture(longHorizon, props)} attach="background" />;
+}

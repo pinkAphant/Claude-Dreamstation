@@ -1,4 +1,5 @@
-import { P, W, type Game, type GameState, type Rng } from "../core";
+import { useCartridgeTexture, type CartridgeProps } from "./cartridge";
+import { P, W, type Game, type GameState, type Rng } from "./core";
 
 interface S extends GameState {
   /** Cell indices (y * COLS + x), head first. */
@@ -129,3 +130,8 @@ export const contextWindow: Game<S> = {
     if ((t >> 3) & 1) g.rect(140, 121, 6, 6, P.ink);
   },
 };
+
+/** The cabinet screen for this game: mount it inside the screen's scene and it fills it. */
+export default function ContextWindow(props: CartridgeProps) {
+  return <primitive object={useCartridgeTexture(contextWindow, props)} attach="background" />;
+}

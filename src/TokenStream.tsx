@@ -1,4 +1,5 @@
-import { P, W, clamp, type Game, type GameState, type Rng } from "../core";
+import { useCartridgeTexture, type CartridgeProps } from "./cartridge";
+import { P, W, clamp, type Game, type GameState, type Rng } from "./core";
 
 interface Tok { x: number; y: number; w: number; label: string; bad: boolean }
 interface Pop { x: number; y: number; t: number; s: string; c: string }
@@ -148,3 +149,8 @@ export const tokenStream: Game<S> = {
     g.rect(102, 146, 2, 4, P.clay);
   },
 };
+
+/** The cabinet screen for this game: mount it inside the screen's scene and it fills it. */
+export default function TokenStream(props: CartridgeProps) {
+  return <primitive object={useCartridgeTexture(tokenStream, props)} attach="background" />;
+}

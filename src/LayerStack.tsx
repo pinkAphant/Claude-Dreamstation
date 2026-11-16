@@ -1,4 +1,5 @@
-import { P, W, clamp, type Game, type GameState } from "../core";
+import { useCartridgeTexture, type CartridgeProps } from "./cartridge";
+import { P, W, clamp, type Game, type GameState } from "./core";
 
 interface S extends GameState {
   layers: { x: number; w: number }[];
@@ -131,3 +132,8 @@ export const layerStack: Game<S> = {
     g.rect(x + 20, 104, 40, 7, COLS[5]!);
   },
 };
+
+/** The cabinet screen for this game: mount it inside the screen's scene and it fills it. */
+export default function LayerStack(props: CartridgeProps) {
+  return <primitive object={useCartridgeTexture(layerStack, props)} attach="background" />;
+}

@@ -1,5 +1,6 @@
-import { P, type Game, type GameState, type Rng } from "../core";
-import type { Gfx } from "../gfx";
+import { useCartridgeTexture, type CartridgeProps } from "./cartridge";
+import { P, type Game, type GameState, type Rng } from "./core";
+import type { Gfx } from "./gfx";
 
 interface S extends GameState {
   cards: number[];
@@ -151,3 +152,8 @@ export const featureMatch: Game<S> = {
     });
   },
 };
+
+/** The cabinet screen for this game: mount it inside the screen's scene and it fills it. */
+export default function FeatureMatch(props: CartridgeProps) {
+  return <primitive object={useCartridgeTexture(featureMatch, props)} attach="background" />;
+}

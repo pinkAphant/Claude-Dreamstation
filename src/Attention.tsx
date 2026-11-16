@@ -1,4 +1,5 @@
-import { P, type Game, type GameState } from "../core";
+import { useCartridgeTexture, type CartridgeProps } from "./cartridge";
+import { P, type Game, type GameState } from "./core";
 
 interface S extends GameState {
   lives: number;
@@ -119,3 +120,8 @@ export const attention: Game<S> = {
     g.spark(90, 124, 5, P.clay, t * 0.02, 8);
   },
 };
+
+/** The cabinet screen for this game: mount it inside the screen's scene and it fills it. */
+export default function Attention(props: CartridgeProps) {
+  return <primitive object={useCartridgeTexture(attention, props)} attach="background" />;
+}

@@ -1,4 +1,5 @@
-import { P, W, type Game, type GameState } from "../core";
+import { useCartridgeTexture, type CartridgeProps } from "./cartridge";
+import { P, W, type Game, type GameState } from "./core";
 
 interface Msg { col: number; y: number; bad: boolean; label: string }
 interface Pop { x: number; y: number; t: number; s: string; c: string }
@@ -138,3 +139,8 @@ export const guardrail: Game<S> = {
     g.rect(59, 138 - ((t * 2) % 26), 2, 6, P.clay);
   },
 };
+
+/** The cabinet screen for this game: mount it inside the screen's scene and it fills it. */
+export default function Guardrail(props: CartridgeProps) {
+  return <primitive object={useCartridgeTexture(guardrail, props)} attach="background" />;
+}

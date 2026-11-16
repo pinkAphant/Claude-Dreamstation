@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, type ComponentType } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { CanvasTexture, NearestFilter, SRGBColorSpace } from "three";
 import { Arcade, type Pad } from "./arcade";
@@ -55,18 +55,4 @@ export function useCartridgeTexture(game: Game<any>, props: CartridgeProps): Can
   });
 
   return rig.texture;
-}
-
-/**
- * Wraps a game as a cabinet cartridge. Mounted inside the cabinet's screen
- * scene (a drei <RenderTexture>), it becomes that scene's background, so it
- * fills the screen whatever camera the cabinet uses.
- */
-export function createCartridge(game: Game<any>): ComponentType<CartridgeProps> {
-  function Cartridge(props: CartridgeProps) {
-    const texture = useCartridgeTexture(game, props);
-    return <primitive object={texture} attach="background" />;
-  }
-  Cartridge.displayName = game.title.join("");
-  return Cartridge;
 }

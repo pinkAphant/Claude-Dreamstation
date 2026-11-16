@@ -1,30 +1,20 @@
 import type { Game } from "./core";
-import { createCartridge } from "./cartridge";
-import { tokenStream } from "./games/tokenStream";
-import { contextWindow } from "./games/contextWindow";
-import { guardrail } from "./games/guardrail";
-import { toolCall } from "./games/toolCall";
-import { longHorizon } from "./games/longHorizon";
-import { attention } from "./games/attention";
-import { featureMatch } from "./games/featureMatch";
-import { layerStack } from "./games/layerStack";
+import TokenStream, { tokenStream } from "./TokenStream";
+import ContextWindow, { contextWindow } from "./ContextWindow";
+import Guardrail, { guardrail } from "./Guardrail";
+import ToolCall, { toolCall } from "./ToolCall";
+import LongHorizon, { longHorizon } from "./LongHorizon";
+import Attention, { attention } from "./Attention";
+import FeatureMatch, { featureMatch } from "./FeatureMatch";
+import LayerStack, { layerStack } from "./LayerStack";
 
-export const GAMES: readonly Game<any>[] = [
-  tokenStream, contextWindow, guardrail, toolCall, longHorizon, attention, featureMatch, layerStack,
-];
-
-export const TokenStream = createCartridge(tokenStream);
-export const ContextWindow = createCartridge(contextWindow);
-export const Guardrail = createCartridge(guardrail);
-export const ToolCall = createCartridge(toolCall);
-export const LongHorizon = createCartridge(longHorizon);
-export const Attention = createCartridge(attention);
-export const FeatureMatch = createCartridge(featureMatch);
-export const LayerStack = createCartridge(layerStack);
+/** The 8 R3F components. Each takes { cabinetId, isActive }. */
+export { TokenStream, ContextWindow, Guardrail, ToolCall, LongHorizon, Attention, FeatureMatch, LayerStack };
 
 const CARTS = [TokenStream, ContextWindow, Guardrail, ToolCall, LongHorizon, Attention, FeatureMatch, LayerStack];
+export const GAMES: readonly Game<any>[] = [tokenStream, contextWindow, guardrail, toolCall, longHorizon, attention, featureMatch, layerStack];
 
-/** One entry per cabinet: id, number, marquee text, and the cartridge to mount on its screen. */
+/** One entry per cabinet: id, number, marquee text, and the component for its screen. */
 export const CABINETS = GAMES.map((game, k) => ({
   id: game.id,
   num: game.num,
@@ -35,7 +25,7 @@ export const CABINETS = GAMES.map((game, k) => ({
   Cartridge: CARTS[k]!,
 }));
 
-export { createCartridge, useCartridgeTexture, type CartridgeProps } from "./cartridge";
+export { useCartridgeTexture, type CartridgeProps } from "./cartridge";
 export { Arcade, PAD_IDLE, type Pad, type ArcadeOptions } from "./arcade";
 export { Gfx, type Ctx2D } from "./gfx";
 export { attachKeyboard, readKeyboard } from "./deck";
