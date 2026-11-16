@@ -42,7 +42,8 @@ export const layerStack: Game<S> = {
     s.t++;
     if (s.fb) s.fb--;
     const n = s.layers.length;
-    s.x += s.dir * Math.min(3.4, 1.2 + n * 0.06);
+    // Capped at 3 px/tick: the perfect window is 3 px wide, so every pass crosses it.
+    s.x += s.dir * Math.min(3, 1.2 + n * 0.06);
     if (s.x <= LO) {
       s.x = LO;
       s.dir = 1;

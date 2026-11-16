@@ -158,8 +158,10 @@ describe("a careful player is never forced to lose", () => {
 
   it("layer stack: aligned drops are perfect and never shrink", () => {
     const a = play("claude-08-layers", THREE_MIN, (s) => {
-      const under = s.layers[s.layers.length - 1];
-      return { s: Math.abs(Math.round(s.x) - under.x) <= 1 };
+      // The press lands after this tick's slide, so aim one step ahead.
+      const n = s.layers.length;
+      const next = Math.min(Math.max(s.x + s.dir * Math.min(3, 1.2 + n * 0.06), 2), 178 - s.w);
+      return { s: Math.abs(Math.round(next) - s.layers[n - 1].x) <= 1 };
     });
     expect(a.phase).toBe("play");
     expect((a.state as any).w).toBe(60);

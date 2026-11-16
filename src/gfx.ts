@@ -149,7 +149,7 @@ export class Gfx {
     }
     for (const b in BTN) {
       const [bx, by] = BTN[b]!;
-      this.rect(x + bx, y + by, 3, 3, k === "any" || k === b ? col : P.mute);
+      this.rect(x + bx, y + by, 3, 3, k === "any" || k === b ? col : "#5c5952");
     }
   }
 }

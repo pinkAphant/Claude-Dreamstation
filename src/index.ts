@@ -38,5 +38,5 @@ export const CABINETS = GAMES.map((game, k) => ({
 export { createCartridge, useCartridgeTexture, type CartridgeProps } from "./cartridge";
 export { Arcade, PAD_IDLE, type Pad, type ArcadeOptions } from "./arcade";
 export { Gfx, type Ctx2D } from "./gfx";
-export { attachKeyboard, readKeyboard, beep } from "./deck";
+export { attachKeyboard, readKeyboard } from "./deck";
 export { W, H, SCALE, P, Rng, type Game, type GameState, type Input, type Sfx, type SfxName } from "./core";

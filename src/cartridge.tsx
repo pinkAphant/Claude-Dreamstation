@@ -2,8 +2,8 @@ import { useEffect, useMemo, useRef, type ComponentType } from "react";
 import { useFrame } from "@react-three/fiber";
 import { CanvasTexture, NearestFilter, SRGBColorSpace } from "three";
 import { Arcade, type Pad } from "./arcade";
-import { H, SCALE, W, type Game } from "./core";
-import { attachKeyboard, beep, readKeyboard } from "./deck";
+import { H, SCALE, W, type Game, type SfxName } from "./core";
+import { attachKeyboard, readKeyboard } from "./deck";
 import { Gfx } from "./gfx";
 
 export interface CartridgeProps {
@@ -12,7 +12,8 @@ export interface CartridgeProps {
   isActive: boolean;
   /** Deck state per frame. Defaults to the keyboard: WASD/arrows + Space, E, Q, Shift/R (or IJKL). */
   pad?: () => Pad;
-  muted?: boolean;
+  /** Sound cue names (start, good, bad, ...). The cartridge itself is silent. */
+  onSfx?: (name: SfxName, cabinetId: string) => void;
   /** Final score, once per finished game. */
   onScore?: (score: number, cabinetId: string) => void;
 }
@@ -32,9 +33,7 @@ export function useCartridgeTexture(game: Game<any>, props: CartridgeProps): Can
     const gfx = new Gfx(ctx);
     const arcade = new Arcade(game, {
       seed: cabinetId,
-      sfx: (n) => {
-        if (!live.current.muted) beep(n);
-      },
+      sfx: (name) => live.current.onSfx?.(name, cabinetId),
       onScore: (score) => live.current.onScore?.(score, cabinetId),
     });
     arcade.draw(gfx);
